@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/miscPref">
+   		<EditTextPreference 
+   		    android:key="notes"
+			android:title="@string/notesPref"
+			android:shouldDisableView="true"
+			android:singleLine="true"/>
+   		<EditTextPreference 
+   		    android:key="title"
+			android:title="@string/titlePref"
+			android:shouldDisableView="true"
+			android:singleLine="true"/>
+   	</PreferenceCategory>   
+   	    	
+</PreferenceScreen>

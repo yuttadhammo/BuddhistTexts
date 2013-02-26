@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Visuddhimagga</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_search">Search</string>
+    <string name="pali">Pali</string>
+    <string name="english">English</string>
+    <string name="preferences_title">ScratchPad Preferences</string>
+    <string name="miscPref">Misc. Prefs</string>
+    <string name="notesPref">Number of notes</string>
+    <string name="titlePref">Title Length</string>
+    
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pali">
+		<item>nidānādikathā</item>
+		<item>1. sīlaniddeso</item>
+		<item>2. dhutaṅganiddeso</item>
+		<item>3. kammaṭṭhānaggahaṇaniddeso</item>
+		<item>4. pathavīkasiṇaniddeso</item>
+		<item>5. sesakasiṇaniddeso</item>
+		<item>6. asubhakammaṭṭhānaniddeso</item>
+		<item>7. chānussatiniddeso</item>
+		<item>8. anussatikammaṭṭhānaniddeso</item>
+		<item>9. brahmavihāraniddeso</item>
+		<item>10. āruppaniddeso</item>
+		<item>11. samādhiniddeso</item>
+		<item>12. iddhividhaniddeso</item>
+		<item>13. abhiññāniddeso</item>
+		<item>14. khandhaniddeso</item>
+		<item>15. āyatanadhātuniddeso</item>
+		<item>16. indriyasaccaniddeso</item>
+		<item>17. paññābhūminiddeso</item>
+		<item>18. diṭṭhivisuddhiniddeso</item>
+		<item>19. kaṅkhāvitaraṇavisuddhiniddeso</item>
+		<item>20. maggāmaggañāṇadassanavisuddhiniddeso</item>
+		<item>21. paṭipadāñāṇadassanavisuddhiniddeso</item>
+		<item>22. ñāṇadassanavisuddhiniddeso</item>
+		<item>23. paññābhāvanānisaṃsaniddeso</item>
+    </string-array>
+</resources>
