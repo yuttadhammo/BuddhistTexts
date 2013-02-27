@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/menu_text"
+	    android:icon="@android:drawable/ic_menu_more"
+		android:title="@string/menu_text"
+		android:showAsAction="ifRoom|withText" 
+		android:orderInCategory="10"
+		>
+		<menu>
+		    <group android:id="@+id/group_text">
+				<item 
+				    android:id="@+id/menu_MN" 
+				    android:title="@string/MN"
+				    android:checkable="true"
+				    android:checked="true"
+				    />
+				<item 
+				    android:id="@+id/menu_VI" 
+				    android:title="@string/VI"
+				    android:checkable="true"
+				    />
+			</group>
+		</menu>
+	</item>
+    <item
+		android:id="@+id/menu_settings"
+		android:orderInCategory="100"
+        android:showAsAction="never"
+		android:title="@string/menu_settings"
+		android:visible="false"
+		/>
+  	<item android:id="@+id/menu_dict"
+		android:icon="@android:drawable/ic_menu_sort_alphabetically"
+        android:orderInCategory="50"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/menu_dict" /> 
+    <item
+        android:id="@+id/menu_search"
+        android:orderInCategory="50"
+		android:icon="@android:drawable/ic_menu_search"
+		android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_search"/>
+    
+</menu>
