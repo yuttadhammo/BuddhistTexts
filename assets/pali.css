@@ -4,6 +4,29 @@ body{font-family:verajjan; background-color:white;}
 .title{font-family:verajjab; color:#5A5;font-weight:bold}
 div.title{font-size:150%; margin-top:24px;}
 .varc{font-size:60%; color:grey}
+.vari{
+	display:none;
+	position:fixed;
+	z-index:2;
+	top:0; 
+	left:0;
+	right:0;
+	max-height:200px;
+	overflow:auto;
+	color:black;
+	padding:0.5em;
+	line-height:1rem;
+	box-shadow: 5px 3px 10px rgba(136, 136, 136, 0.3);
+	background-color:#ffffea;
+	border-radius: 0px 3px 3px 3px;
+	border:2px solid #d2d9bd;
+}
+span.varc:hover{
+	color:blue;
+}
+span.varc:hover > span.vari {
+	display:block;
+}
 .pageno {font-size:60%; color:blue}
 .paratype06 {font-style:italic;color:#999999;}
 p[class*="paratype2"]{ margin: 0 0 0 24px;}

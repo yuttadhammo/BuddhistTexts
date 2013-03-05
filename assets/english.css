@@ -1,0 +1,223 @@
+* 		{margin:0;
+		padding:0;} 
+
+html		{height:100%; 
+				-webkit-font-smoothing: antialiased;}
+
+body		{font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+		text-align:left; 
+		line-height:1.3;
+		margin-top:3.5em;
+		padding-bottom:20em;
+}
+
+b,
+strong {	font-weight: bold;}
+
+sub,
+sup {font-size: 75%;
+   		line-height: 0;
+   		position: relative;
+    		vertical-align: baseline;}
+sup {		top: -0.5em;}
+
+sub {		bottom: -0.25em}
+
+section {	
+
+					padding:0 30px;
+					font-size: 100%;
+					line-height: 1.65rem;
+					}
+article	{ margin-bottom:3em; }
+hgroup {font-family:"Caga SC", serif;
+		text-align:center;
+		font-weight:normal;
+		margin-bottom:2.65em;
+		padding-top:0.65em;
+		}
+hgroup > h1 {
+		letter-spacing:0.07em;
+		font-size:2em;
+		font-weight:normal;
+}
+hgroup > h2 {
+		letter-spacing:0.1em;
+		font-size:1.5em;
+		font-weight:normal;
+}
+
+article > h1{font-family:"Caga SC", serif;
+		text-align:center;
+		font-weight:normal;
+		letter-spacing:0.07em;
+		font-size:2em;
+		margin-bottom:1.65em;
+		padding-top:0.65em;
+}
+article > h2{font-family:"Caga SC", serif;
+		text-align:center;
+		font-weight:normal;
+		letter-spacing:0.1em;
+		margin:1.65rem 0 1.75rem 0;
+		font-size:1.25rem;
+}
+
+article > h2 > span {
+		font-size:0.9333rem;
+}
+
+article > h3 {
+		font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+		text-align:left;
+		font-weight:normal;
+		font-style:italic;
+		margin:1.8rem 0 0rem 0;
+		font-size:1.05rem;
+		letter-spacing:0.1em;
+}
+
+div.menu		{position:relative;
+			/*margin:0.4em 0 1em 1em;*/
+			
+			padding:1em 1em 0 0;
+			background-color:#fafafa;
+			border:1px solid #ddd;
+			border-radius: 3px 3px 3px 3px;}
+
+div.menu ul		{
+				list-style-type:none;
+				font-family: "Caga SC",serif;
+				/*font-size:80%;*/
+				line-height:1.5;
+				padding: 0 0 0 1em;margin:0;
+				letter-spacing:0.05em;}
+div.menu ul li p {
+	font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+	font-size: 80%;
+	padding: 0 0 0 1em;margin:0;
+}
+
+
+a {text-decoration:none;}
+h1 a, h2 a, h3 a {color:#555;}
+h1 a:hover, h2 a:hover, h3 a:hover 	{color:blue;}
+h3 a:active 	{color:purple;}
+
+/* BB used faux small-caps. Since this css uses real smallcaps the only change required is conversion to lowercase of small span*/
+span.smallcap {text-transform:lowercase;}
+
+p.homage {text-align:center;font-style:italic;}
+
+p.finished {text-align:center;}
+		
+.verse {font-size: inherit;
+					display: table;
+					width: auto;
+					margin: 0 auto;}
+					
+article > p, blockquote.verse > p {
+	margin-bottom: 1em;
+}
+
+/* Paragraph Numbers */
+span.pnum
+			{visibility:visible;
+			position:absolute;
+			text-align:right;
+			width:4em;
+			font-family: "Segoe UI", FreeSans,"DejaVu Sans",Helvetica,Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+			font-size:0.6em;
+			display:table;}
+
+span.pnum	{margin:-0.0em 0 0 -4.8em;
+					color:#666;}
+					
+span.pnum > a {color:inherit;}
+
+/* Hover Notes */
+span.note		{
+		position:relative;
+	}
+
+span.note > sup {
+	color: #555;
+	opacity:1;
+	}
+
+span.note > q {
+		font-weight: normal;
+		font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+		font-size:0.8em;
+		text-align:left;
+		letter-spacing:0em;
+		margin:0 0 0 0;
+}
+
+span.note  q	{
+			position:fixed;
+			z-index:2;
+			top:0; 
+			left:0;
+			right:0;
+			max-height:200px;
+			overflow:auto;
+			color:black;
+			padding:0.5em;
+			line-height:1rem;
+			box-shadow: 5px 3px 10px rgba(136, 136, 136, 0.3);
+			background-color:#ffffea;
+			border-radius: 0px 3px 3px 3px;
+			border:2px solid #d2d9bd;
+			visibility:hidden;
+			opacity:0;
+		}
+span.note q a {color:blue;}
+span.note q a:hover {color:purple;}
+span.note q a:visited {color:purple;}
+
+span.note:hover {
+	color:blue;
+}
+
+span.note:hover > q{
+	visibility:visible;
+	opacity:1;
+}
+
+
+
+@media print {
+* {
+	
+	background: transparent !important; color: black !important; }
+  	a, a:visited, .vagga { color: black !important; }
+	header, footer, .deets, .tri {display:none !important;}
+
+	tr	{position: relative;page-break-before: auto;}
+
+	td	{border: 1px solid #aaa;}
+
+	th	{border: 1px solid #000;}
+
+	table		{position: relative;}
+
+	span.note {display:none;}
+
+	th, td		{border-left: none;
+		border-right: none;
+		padding:0.2em;}
+
+	tfoot tr{border: none;}
+
+	body, td, th, caption	
+		{font-size: 11pt;
+		font-family:"Gentium Basic",Cambria,"Times New Roman","DejaVu Serif",Helvetica,Arial,serif;}
+	
+	#onecol	{margin-top:-3cm;}
+  	
+  @page { margin: 2cm 1cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3	{ page-break-after: avoid; }
+
+}
