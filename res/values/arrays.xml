@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="vi_names">
-		<item>nidānādikathā</item>
-		<item>1. sīla niddeso</item>
-		<item>2. dhutaṅga niddeso</item>
-		<item>3. kammaṭṭhānaggahaṇa niddeso</item>
-		<item>4. pathavīkasiṇa niddeso</item>
-		<item>5. sesakasiṇa niddeso</item>
-		<item>6. asubhakammaṭṭhāna niddeso</item>
-		<item>7. chānussati niddeso</item>
-		<item>8. anussatikammaṭṭhāna niddeso</item>
-		<item>9. brahmavihāra niddeso</item>
-		<item>10. āruppa niddeso</item>
-		<item>11. samādhi niddeso</item>
-		<item>12. iddhividha niddeso</item>
-		<item>13. abhiññā niddeso</item>
-		<item>14. khandha niddeso</item>
-		<item>15. āyatanadhātu niddeso</item>
-		<item>16. indriyasacca niddeso</item>
-		<item>17. paññābhūmi niddeso</item>
-		<item>18. diṭṭhivisuddhi niddeso</item>
-		<item>19. kaṅkhāvitaraṇavisuddhi niddeso</item>
-		<item>20. maggāmaggañāṇadassanavisuddhi niddeso</item>
-		<item>21. paṭipadāñāṇadassanavisuddhi niddeso</item>
-		<item>22. ñāṇadassanavisuddhi niddeso</item>
-		<item>23. paññābhāvanānisaṃsa niddeso</item>
+    <string-array name="set_names">
+		<item>DN</item>
+		<item>MN</item>
+		<item>AN</item>
+		<item>Vism.</item>
+	</string-array>
+    <string-array name="dn_names">
+		<item>1. brahmajālasuttaṃ</item>
+		<item>2. sāmaññaphalasuttaṃ</item>
+		<item>3. ambaṭṭhasuttaṃ</item>
+		<item>4. soṇadaṇḍasuttaṃ</item>
+		<item>5. kūṭadantasuttaṃ</item>
+		<item>6. mahālisuttaṃ</item>
+		<item>7. jāliyasuttaṃ</item>
+		<item>8. mahāsīhanādasuttaṃ</item>
+		<item>9. poṭṭhapādasuttaṃ</item>
+		<item>10. subhasuttaṃ</item>
+		<item>11. kevaṭṭasuttaṃ</item>
+		<item>12. lohiccasuttaṃ</item>
+		<item>13. tevijjasuttaṃ</item>
+		<item>14. mahāpadānasuttaṃ</item>
+		<item>15. mahānidānasuttaṃ</item>
+		<item>16. mahāparinibbānasuttaṃ</item>
+		<item>17. mahāsudassanasuttaṃ</item>
+		<item>18. janavasabhasuttaṃ</item>
+		<item>19. mahāgovindasuttaṃ</item>
+		<item>20. mahāsamayasuttaṃ</item>
+		<item>21. sakkapañhasuttaṃ</item>
+		<item>22. mahāsatipaṭṭhānasuttaṃ</item>
+		<item>23. pāyāsisuttaṃ</item>
+		<item>24. pāthikasuttaṃ</item>
+		<item>25. udumbarikasuttaṃ</item>
+		<item>26. cakkavattisuttaṃ</item>
+		<item>27. aggaññasuttaṃ</item>
+		<item>28. sampasādanīyasuttaṃ</item>
+		<item>29. pāsādikasuttaṃ</item>
+		<item>30. lakkhaṇasuttaṃ</item>
+		<item>31. siṅgālasuttaṃ</item>
+		<item>32. āṭānāṭiyasuttaṃ</item>
+		<item>33. saṅgītisuttaṃ</item>
+		<item>34. dasuttarasuttaṃ</item>
     </string-array>
     <string-array name="mn_names">
 		<item>1. mūlapariyāya sutta</item>
@@ -180,4 +196,44 @@
 		<item>151. piṇḍapātapārisuddhi sutta</item>
 		<item>152. indriyabhāvanā sutta</item>
     </string-array>
+    <string-array name="an_names">
+    	<item>ekakanipātapāḷi</item>
+		<item>dukanipātapāḷi</item>
+		<item>tikanipātapāḷi</item>
+		<item>catukkanipātapāḷi</item>
+		<item>pañcakanipātapāḷi</item>
+		<item>chakkanipātapāḷi</item>
+		<item>sattakanipātapāḷi</item>
+		<item>aṭṭhakanipātapāḷi</item>
+		<item>navakanipātapāḷi</item>
+		<item>dasakanipātapāḷi</item>
+		<item>ekādasakanipātapāḷi</item>
+	</string-array>    
+    <string-array name="vi_names">
+		<item>nidānādikathā</item>
+		<item>1. sīla niddeso</item>
+		<item>2. dhutaṅga niddeso</item>
+		<item>3. kammaṭṭhānaggahaṇa niddeso</item>
+		<item>4. pathavīkasiṇa niddeso</item>
+		<item>5. sesakasiṇa niddeso</item>
+		<item>6. asubhakammaṭṭhāna niddeso</item>
+		<item>7. chānussati niddeso</item>
+		<item>8. anussatikammaṭṭhāna niddeso</item>
+		<item>9. brahmavihāra niddeso</item>
+		<item>10. āruppa niddeso</item>
+		<item>11. samādhi niddeso</item>
+		<item>12. iddhividha niddeso</item>
+		<item>13. abhiññā niddeso</item>
+		<item>14. khandha niddeso</item>
+		<item>15. āyatanadhātu niddeso</item>
+		<item>16. indriyasacca niddeso</item>
+		<item>17. paññābhūmi niddeso</item>
+		<item>18. diṭṭhivisuddhi niddeso</item>
+		<item>19. kaṅkhāvitaraṇavisuddhi niddeso</item>
+		<item>20. maggāmaggañāṇadassanavisuddhi niddeso</item>
+		<item>21. paṭipadāñāṇadassanavisuddhi niddeso</item>
+		<item>22. ñāṇadassanavisuddhi niddeso</item>
+		<item>23. paññābhāvanānisaṃsa niddeso</item>
+    </string-array>
+    
 </resources>

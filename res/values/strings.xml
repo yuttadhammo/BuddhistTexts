@@ -7,8 +7,10 @@
     <string name="menu_dict">Dictionary</string>
     <string name="menu_text">Text</string>
 
-        <string name="VI">Vism</string>
-        <string name="MN">MN</string>
+        <string name="DN">DN</string>
+    	<string name="MN">MN</string>
+    	<string name="AN">AN</string>
+    	<string name="VI">Vism</string>
         
     <string name="pali">Pali</string>
     <string name="english">English</string>

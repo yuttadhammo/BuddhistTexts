@@ -3,6 +3,7 @@ package org.yuttadhammo.buddhisttexts;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.ClipData;
@@ -75,12 +76,14 @@ public class TextsActivity extends FragmentActivity implements
 
 	protected static WebView currentWebView;
 
-	protected int currentPage = 0;
+	protected int currentPage;
 
-	private int set = 0;
+	private int set;
 	
-	private String[] slugs = {"mn","vi"};
-	private int[] arrays = {R.array.mn_names,R.array.vi_names};
+	private String[] slugs = {"dn","mn","an","vi"};
+	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.an_names,R.array.vi_names};
+
+	public static WebView[] webviews = new WebView[2];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class TextsActivity extends FragmentActivity implements
 		setContentView(R.layout.main);
 		
 		set = prefs.getInt("set", 0);
+		currentPage = prefs.getInt("page", 0);
 		chapter = prefs.getInt("chapter", 1);
 		lastPosition = chapter-1;
 			
@@ -96,6 +100,9 @@ public class TextsActivity extends FragmentActivity implements
 		// Set up the action bar.
 		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
+		setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
+		
 		final SlidingDrawer drawer = (SlidingDrawer) findViewById(R.id.drawer);
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -108,6 +115,8 @@ public class TextsActivity extends FragmentActivity implements
 					@Override
 					public void onPageSelected(int position) {
 						currentPage = position;
+						currentWebView = webviews[position];
+						
 						// For each of the sections in the app, add a tab to the action bar.
 						for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 							// Create a tab with text corresponding to the page title defined by
@@ -117,7 +126,7 @@ public class TextsActivity extends FragmentActivity implements
 							actionBar.getTabAt(i)
 								.setText(mSectionsPagerAdapter.getPageTitle(i));
 						}
-
+						
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
@@ -163,10 +172,15 @@ public class TextsActivity extends FragmentActivity implements
 	@Override
     protected void onPause() {
 		super.onPause();
+		if(currentWebView == null)
+			currentWebView = webviews[currentPage];
 		SharedPreferences.Editor editor = prefs.edit();
-    	editor.putInt("chapter", chapter);
-		if(currentWebView != null)
+		editor.putInt("set", set);
+		editor.putInt("chapter", chapter);
+    	editor.putInt("page", currentPage);
+		if(currentWebView != null) {
 			editor.putFloat("zoom_"+currentPage, currentWebView.getScale());
+		}
     	editor.commit();
 	}
 
@@ -180,6 +194,8 @@ public class TextsActivity extends FragmentActivity implements
 				lastPosition);
 		idxList.setAdapter(adapter);
 		
+		if(currentWebView == null)
+			currentWebView = webviews[currentPage];
 		if(currentWebView != null)
 			prefs.edit().putFloat("zoom_"+currentPage, currentWebView.getScale()).commit();
 
@@ -197,6 +213,10 @@ public class TextsActivity extends FragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu, menu);
+	    Menu sub = menu.findItem(R.id.menu_text).getSubMenu();
+	    sub.setGroupCheckable(R.id.group_text, true, true);
+		sub.getItem(set).setChecked(true);
+
 		return true;
 	}
 
@@ -209,20 +229,28 @@ public class TextsActivity extends FragmentActivity implements
 		if(item.isCheckable()) {
 			item.setChecked(true);
 			switch(item.getItemId()) {
-		        case R.id.menu_MN:
+		        case R.id.menu_DN:
 		        	if(set == 0)
 		        		return false;
-					set = 1;
+					set = 0;
 					break;
-				case R.id.menu_VI:
+				case R.id.menu_MN:
 		        	if(set == 1)
 		        		return false;
 					set = 1;
 					break;
+				case R.id.menu_AN:
+		        	if(set == 2)
+		        		return false;
+					set = 2;
+					break;					
+				case R.id.menu_VI:
+		        	if(set == 3)
+		        		return false;
+					set = 3;
+					break;
 			}
-			SharedPreferences.Editor ed = prefs.edit ();
-			ed.putInt("set", set);
-			ed.commit();
+			setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
 			lastPosition = 0;
 			chapter = 1;
 			updatePage();
@@ -245,27 +273,27 @@ public class TextsActivity extends FragmentActivity implements
 				search();
 				return true;
 			case (int)R.id.menu_dict:
+				intent = new Intent("org.yuttadhammo.tipitaka.LOOKUP");
+
 				ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
-				if (!(clipboard.hasPrimaryClip()))
-					return false;
-
-				// Examines the item on the clipboard. If getText() does not return null, the clip item contains the
-				// text. Assumes that this application can only handle one item at a time.
-				 ClipData.Item citem = clipboard.getPrimaryClip().getItemAt(0);
-				
-				// Gets the clipboard as text.
-				String aword = (String) citem.getText();
-
-				// If the string contains data, then the paste operation is done
-				if (aword == null || aword.contains(" "))
-				    return false;
-
-				intent = new Intent("org.yuttadhammo.tipitaka.LOOKUP");
-				Bundle dataBundle = new Bundle();
-				dataBundle.putString("word", aword);
-				dataBundle.putInt("dict", 4);
-				intent.putExtras(dataBundle);
+				if (clipboard.hasPrimaryClip()) {
+	
+					// Examines the item on the clipboard. If getText() does not return null, the clip item contains the
+					// text. Assumes that this application can only handle one item at a time.
+					 ClipData.Item citem = clipboard.getPrimaryClip().getItemAt(0);
+					
+					// Gets the clipboard as text.
+					String aword = (String) citem.getText();
+	
+					// If the string contains data, then the paste operation is done
+					if (aword != null && !aword.contains(" ")) {
+						Bundle dataBundle = new Bundle();
+						dataBundle.putString("word", aword);
+						dataBundle.putInt("dict", 4);
+						intent.putExtras(dataBundle);
+					}
+				}
 				startActivity(intent);
 				return true;
 		}
@@ -350,6 +378,7 @@ public class TextsActivity extends FragmentActivity implements
 		public SectionFragment() {
 		}
 
+		@SuppressLint({ "NewApi", "SetJavaScriptEnabled" })
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -361,17 +390,18 @@ public class TextsActivity extends FragmentActivity implements
 			Bundle args = getArguments();
 			int page = args.getInt("page");
 			String file = files[page];
-			String current = args.getString("isCurrent");
 
 			Log.i(TAG,"loading file "+file);
 			ewv.getSettings().setBuiltInZoomControls(true);
 			ewv.getSettings().setSupportZoom(true);
+	        ewv.getSettings().setJavaScriptEnabled(true); // enable javascript
+
 	        float zoom = prefs.getFloat("zoom_"+page, 1f);
 			ewv.setInitialScale((int)(100*zoom));
+	        
 			ewv.setWebViewClient(new MyWebViewClient());
 	        ewv.loadUrl("file:///android_asset/" +file);
-			if(current != null)
-				currentWebView = ewv;
+			webviews[page] = ewv;
 
 			return rootView;
 		}
@@ -381,10 +411,10 @@ public class TextsActivity extends FragmentActivity implements
 				view.loadUrl(url);
 				return true;
 			}
-			@Override
-			public void onPageFinished(WebView view, String url) {
+		    public boolean flag = false;
+		    public void onPageFinished(WebView view, String url) {
 
-			}
+            }
 
 		}
 
@@ -399,7 +429,9 @@ public class TextsActivity extends FragmentActivity implements
 	    nextButton.setText("Next");  
 	    nextButton.setOnClickListener(new OnClickListener(){  
 	    	@Override  
-	    	public void onClick(View v){  
+	    	public void onClick(View v){
+	    		if(currentWebView == null)
+	    			currentWebView = webviews[currentPage];
 	    		currentWebView.findNext(true);  
 	    	}  
 	    });  
@@ -421,7 +453,8 @@ public class TextsActivity extends FragmentActivity implements
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 		    	if((event.getAction() == KeyEvent.ACTION_DOWN) && ((keyCode == KeyEvent.KEYCODE_ENTER))){  
-		    		Log.i(TAG,"is searching in "+currentWebView.getUrl());
+		    		if(currentWebView == null)
+		    			currentWebView = webviews[currentPage];
 		    		currentWebView.findAll(toUni(findBox.getText().toString()));  
 					  
 					try{  
@@ -454,4 +487,16 @@ public class TextsActivity extends FragmentActivity implements
 		string = string.replaceAll("ā", "aa").replaceAll("ī", "ii").replaceAll("ū", "uu").replaceAll("ṭ", ".t").replaceAll("ḍ", ".d").replaceAll("ṅ", "\"n").replaceAll("ṇ", ".n").replaceAll("[ṃṁ]", ".m").replaceAll("ñ", "~n").replaceAll("ḷ", ".l").replaceAll("Ā", "AA").replaceAll("Ī", "II").replaceAll("Ū", "UU").replaceAll("Ṭ", ".T").replaceAll("Ḍ", ".D").replaceAll("Ṅ", "\"N").replaceAll("Ṇ", ".N").replaceAll("[ṂṀ]",".M").replaceAll("Ñ", "~N").replaceAll("Ḷ", ".L");
 		return string;
 	}	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(currentWebView == null)
+			currentWebView = webviews[currentPage];
+		if (currentWebView != null && keyCode == KeyEvent.KEYCODE_BACK && currentWebView.canGoBack()) {
+			Log.i(TAG,"going back");
+			currentWebView.goBack();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

@@ -8,10 +8,19 @@
 		<menu>
 		    <group android:id="@+id/group_text">
 				<item 
+				    android:id="@+id/menu_DN" 
+				    android:title="@string/DN"
+				    android:checkable="true"
+				    />		        
+				<item 
 				    android:id="@+id/menu_MN" 
 				    android:title="@string/MN"
 				    android:checkable="true"
-				    android:checked="true"
+				    />
+				<item 
+				    android:id="@+id/menu_AN" 
+				    android:title="@string/AN"
+				    android:checkable="true"
 				    />
 				<item 
 				    android:id="@+id/menu_VI" 
