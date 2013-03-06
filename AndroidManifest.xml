@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.yuttadhammo.buddhisttexts.TextsActivity"
+            android:name=".TextsActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         </activity>
         <activity 
 			android:theme="@style/AppTheme"
-			android:name="org.yuttadhammo.buddhisttexts.TextsSettingsActivity"
+			android:name=".TextsSettingsActivity"
 			android:noHistory="true"
 			android:label="@string/preferences_title"
         />

@@ -4,11 +4,12 @@
 html		{height:100%; 
 				-webkit-font-smoothing: antialiased;}
 
-body		{font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
-		text-align:left; 
-		line-height:1.3;
-		margin-top:3.5em;
-		padding-bottom:20em;
+body {
+	font-family: "Segoe UI", Helvetica,"DejaVu Sans",Geneva,"Arial Unicode MS",Tahoma,Arial, sans-serif;
+	text-align:left; 
+	line-height:1.3;
+	margin-top:3.5em;
+	padding-bottom:20em;
 }
 
 b,

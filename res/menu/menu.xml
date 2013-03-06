@@ -23,6 +23,16 @@
 				    android:checkable="true"
 				    />
 				<item 
+				    android:id="@+id/menu_DH" 
+				    android:title="@string/DH"
+				    android:checkable="true"
+				    />
+				<item 
+				    android:id="@+id/menu_JA" 
+				    android:title="@string/JA"
+				    android:checkable="true"
+				    />
+				<item 
 				    android:id="@+id/menu_VI" 
 				    android:title="@string/VI"
 				    android:checkable="true"

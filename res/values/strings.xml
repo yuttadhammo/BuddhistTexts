@@ -10,6 +10,8 @@
         <string name="DN">DN</string>
     	<string name="MN">MN</string>
     	<string name="AN">AN</string>
+    	<string name="DH">Dhp</string>
+    	<string name="JA">Jat</string>
     	<string name="VI">Vism</string>
         
     <string name="pali">Pali</string>

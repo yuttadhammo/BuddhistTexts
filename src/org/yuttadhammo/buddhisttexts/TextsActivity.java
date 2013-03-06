@@ -3,6 +3,9 @@ package org.yuttadhammo.buddhisttexts;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -21,6 +24,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -80,14 +84,24 @@ public class TextsActivity extends FragmentActivity implements
 
 	private int set;
 	
-	private String[] slugs = {"dn","mn","an","vi"};
-	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.an_names,R.array.vi_names};
-
+	private String[] slugs = {"dn","mn","an","dh","ja","vi"};
+	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.an_names,R.array.dh_names,R.array.ja_names,R.array.vi_names};
+	SparseIntArray map = new SparseIntArray();
+	
 	public static WebView[] webviews = new WebView[2];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		int mapi = 0;
+		map.put(R.id.menu_DN, mapi++);
+		map.put(R.id.menu_MN, mapi++);
+		map.put(R.id.menu_AN, mapi++);
+		map.put(R.id.menu_DH, mapi++);
+		map.put(R.id.menu_JA, mapi++);
+		map.put(R.id.menu_VI, mapi++);
+		
 		prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		setContentView(R.layout.main);
 		
@@ -228,28 +242,7 @@ public class TextsActivity extends FragmentActivity implements
 		
 		if(item.isCheckable()) {
 			item.setChecked(true);
-			switch(item.getItemId()) {
-		        case R.id.menu_DN:
-		        	if(set == 0)
-		        		return false;
-					set = 0;
-					break;
-				case R.id.menu_MN:
-		        	if(set == 1)
-		        		return false;
-					set = 1;
-					break;
-				case R.id.menu_AN:
-		        	if(set == 2)
-		        		return false;
-					set = 2;
-					break;					
-				case R.id.menu_VI:
-		        	if(set == 3)
-		        		return false;
-					set = 3;
-					break;
-			}
+			set = map.get(item.getItemId());
 			setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
 			lastPosition = 0;
 			chapter = 1;
