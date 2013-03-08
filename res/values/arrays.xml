@@ -3,6 +3,7 @@
     <string-array name="set_names">
 		<item>DN</item>
 		<item>MN</item>
+		<item>SN</item>
 		<item>AN</item>
 		<item>Dhp</item>
 		<item>Jat</item>
@@ -198,6 +199,64 @@
 		<item>151. piṇḍapātapārisuddhi sutta</item>
 		<item>152. indriyabhāvanā sutta</item>
     </string-array>
+	<string-array name="sn_names">
+		<item>1. devatāsaṃyuttaṃ</item>
+		<item>2. devaputtasaṃyuttaṃ</item>
+		<item>3. kosalasaṃyuttaṃ</item>
+		<item>4. mārasaṃyuttaṃ</item>
+		<item>5. bhikkhunīsaṃyuttaṃ</item>
+		<item>6. brahmasaṃyuttaṃ</item>
+		<item>7. brāhmaṇasaṃyuttaṃ</item>
+		<item>8. vaṅgīsasaṃyuttaṃ</item>
+		<item>9. vanasaṃyuttaṃ</item>
+		<item>10. yakkhasaṃyuttaṃ</item>
+		<item>11. sakkasaṃyuttaṃ</item>
+		<item>12. nidānasaṃyuttaṃ</item>
+		<item>13. abhisamayasaṃyuttaṃ</item>
+		<item>14. dhātusaṃyuttaṃ</item>
+		<item>15. anamataggasaṃyuttaṃ</item>
+		<item>16. kassapasaṃyuttaṃ</item>
+		<item>17. lābhasakkārasaṃyuttaṃ</item>
+		<item>18. rāhulasaṃyuttaṃ</item>
+		<item>19. lakkhaṇasaṃyuttaṃ</item>
+		<item>20. opammasaṃyuttaṃ</item>
+		<item>21. bhikkhusaṃyuttaṃ</item>
+		<item>22. khandhasaṃyuttaṃ</item>
+		<item>23. rādhasaṃyuttaṃ</item>
+		<item>24. diṭṭhisaṃyuttaṃ</item>
+		<item>25. okkantasaṃyuttaṃ</item>
+		<item>26. uppādasaṃyuttaṃ</item>
+		<item>27. kilesasaṃyuttaṃ</item>
+		<item>28. sāriputtasaṃyuttaṃ</item>
+		<item>29. nāgasaṃyuttaṃ</item>
+		<item>30. supaṇṇasaṃyuttaṃ</item>
+		<item>31. gandhabbakāyasaṃyuttaṃ</item>
+		<item>32. valāhakasaṃyuttaṃ</item>
+		<item>33. vacchagottasaṃyuttaṃ</item>
+		<item>34. jhānasaṃyuttaṃ</item>
+		<item>35. saḷāyatanasaṃyuttaṃ</item>
+		<item>36. vedanāsaṃyuttaṃ</item>
+		<item>37. mātugāmasaṃyuttaṃ</item>
+		<item>38. jambukhādakasaṃyuttaṃ</item>
+		<item>39. sāmaṇḍakasaṃyuttaṃ</item>
+		<item>40. moggallānasaṃyuttaṃ</item>
+		<item>41. cittasaṃyuttaṃ</item>
+		<item>42. gāmaṇisaṃyuttaṃ</item>
+		<item>43. asaṅkhatasaṃyuttaṃ</item>
+		<item>44. abyākatasaṃyuttaṃ</item>
+		<item>45. maggasaṃyuttaṃ</item>
+		<item>46. bojjhaṅgasaṃyuttaṃ</item>
+		<item>47. satipaṭṭhānasaṃyuttaṃ</item>
+		<item>48. indriyasaṃyuttaṃ</item>
+		<item>49. sammappadhānasaṃyuttaṃ</item>
+		<item>50. balasaṃyuttaṃ</item>
+		<item>51. iddhipādasaṃyuttaṃ</item>
+		<item>52. anuruddhasaṃyuttaṃ</item>
+		<item>53. jhānasaṃyuttaṃ</item>
+		<item>54. ānāpānasaṃyuttaṃ</item>
+		<item>55. sotāpattisaṃyuttaṃ</item>
+		<item>56. saccasaṃyuttaṃ</item>
+	</string-array>
     <string-array name="an_names">
     	<item>ekakanipātapāḷi</item>
 		<item>dukanipātapāḷi</item>

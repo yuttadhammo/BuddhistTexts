@@ -3,7 +3,7 @@
 	    android:icon="@android:drawable/ic_menu_more"
 		android:title="@string/menu_text"
 		android:showAsAction="ifRoom|withText" 
-		android:orderInCategory="10"
+		android:orderInCategory="20"
 		>
 		<menu>
 		    <group android:id="@+id/group_text">
@@ -15,6 +15,11 @@
 				<item 
 				    android:id="@+id/menu_MN" 
 				    android:title="@string/MN"
+				    android:checkable="true"
+				    />
+				<item 
+				    android:id="@+id/menu_SN" 
+				    android:title="@string/SN"
 				    android:checkable="true"
 				    />
 				<item 
@@ -42,17 +47,22 @@
 	</item>
     <item
 		android:id="@+id/menu_settings"
+		android:icon="@android:drawable/ic_menu_manage"
 		android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
 		android:title="@string/menu_settings"
-		android:visible="false"
 		/>
-  	<item android:id="@+id/menu_dict"
-		android:icon="@android:drawable/ic_menu_sort_alphabetically"
-        android:orderInCategory="50"
-		android:showAsAction="ifRoom|withText"
-		android:title="@string/menu_dict" /> 
-    <item
+  	<item android:id="@+id/menu_back"
+		android:icon="@drawable/ic_menu_back"
+        android:orderInCategory="10"
+		android:showAsAction="always"
+		android:title="@string/menu_back" /> 
+  	<item android:id="@+id/menu_forward"
+		android:icon="@drawable/ic_menu_forward"
+        android:orderInCategory="10"
+		android:showAsAction="always"
+		android:title="@string/menu_forward" /> 
+  	<item
         android:id="@+id/menu_search"
         android:orderInCategory="50"
 		android:icon="@android:drawable/ic_menu_search"

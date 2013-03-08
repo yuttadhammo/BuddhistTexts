@@ -1,6 +1,7 @@
 package org.yuttadhammo.buddhisttexts;
 
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -41,6 +43,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SlidingDrawer;
+import android.widget.Toast;
 
 public class TextsActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -84,9 +87,11 @@ public class TextsActivity extends FragmentActivity implements
 
 	private int set;
 	
-	private String[] slugs = {"dn","mn","an","dh","ja","vi"};
-	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.an_names,R.array.dh_names,R.array.ja_names,R.array.vi_names};
+	private String[] slugs = {"dn","mn","sn","an","dh","ja","vi"};
+	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.sn_names,R.array.an_names,R.array.dh_names,R.array.ja_names,R.array.vi_names};
 	SparseIntArray map = new SparseIntArray();
+
+	private int lastPage;
 	
 	public static WebView[] webviews = new WebView[2];
 
@@ -97,6 +102,7 @@ public class TextsActivity extends FragmentActivity implements
 		int mapi = 0;
 		map.put(R.id.menu_DN, mapi++);
 		map.put(R.id.menu_MN, mapi++);
+		map.put(R.id.menu_SN, mapi++);
 		map.put(R.id.menu_AN, mapi++);
 		map.put(R.id.menu_DH, mapi++);
 		map.put(R.id.menu_JA, mapi++);
@@ -161,19 +167,7 @@ public class TextsActivity extends FragmentActivity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				drawer.animateClose();
 				
-				chapter = position+1;
-				lastPosition = position;
-				
-			     // save index and top position
-				
-		        int index = idxList.getFirstVisiblePosition();
-		        View v = idxList.getChildAt(0);
-		        int top = (v == null) ? 0 : v.getTop();
-		
-				updatePage();
-		
-		        // restore
-		        idxList.setSelectionFromTop(index, top);
+				changePosition(position);
 		  	}
 		});
 		updatePage();
@@ -206,6 +200,7 @@ public class TextsActivity extends FragmentActivity implements
 				R.id.title, 
 				Arrays.asList(getResources().getStringArray(arrays[set])), 
 				lastPosition);
+		lastPage = adapter.getCount()-1;
 		idxList.setAdapter(adapter);
 		
 		if(currentWebView == null)
@@ -263,34 +258,37 @@ public class TextsActivity extends FragmentActivity implements
 				startActivity(intent);
 				return true;
 			case (int)R.id.menu_search:
-				search();
+				searchInPage();
 				return true;
-			case (int)R.id.menu_dict:
-				intent = new Intent("org.yuttadhammo.tipitaka.LOOKUP");
-
-				ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-
-				if (clipboard.hasPrimaryClip()) {
-	
-					// Examines the item on the clipboard. If getText() does not return null, the clip item contains the
-					// text. Assumes that this application can only handle one item at a time.
-					 ClipData.Item citem = clipboard.getPrimaryClip().getItemAt(0);
-					
-					// Gets the clipboard as text.
-					String aword = (String) citem.getText();
-	
-					// If the string contains data, then the paste operation is done
-					if (aword != null && !aword.contains(" ")) {
-						Bundle dataBundle = new Bundle();
-						dataBundle.putString("word", aword);
-						dataBundle.putInt("dict", 4);
-						intent.putExtras(dataBundle);
-					}
-				}
-				startActivity(intent);
+			case (int)R.id.menu_back:
+				if(lastPosition == 0)
+					Toast.makeText(this, R.string.start_book, Toast.LENGTH_SHORT).show();
+				else
+					changePosition(lastPosition-1);
+				return true;
+			case (int)R.id.menu_forward:
+				if(lastPosition == lastPage)
+					Toast.makeText(this, R.string.end_book, Toast.LENGTH_SHORT).show();
+				else
+					changePosition(lastPosition+1);
 				return true;
 		}
 		return false;
+	}
+	private void changePosition(int position) {
+		chapter = position+1;
+		lastPosition = position;
+		
+	     // save index and top position
+		
+        int index = idxList.getFirstVisiblePosition();
+        View v = idxList.getChildAt(0);
+        int top = (v == null) ? 0 : v.getTop();
+
+		updatePage();
+
+        // restore
+        idxList.setSelectionFromTop(index, top);		
 	}
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
@@ -321,10 +319,34 @@ public class TextsActivity extends FragmentActivity implements
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
-			Log.i(TAG,"updating pager adapter to chapter "+chapter);
-			files[0] = slugs[set]+"/"+slugs[set]+"_p_"+chapter+".htm";
-			files[1] = slugs[set]+"/"+slugs[set]+"_e_"+chapter+".htm";
+			//Log.i(TAG,"updating pager adapter to chapter "+chapter);
 
+			// pali file
+			
+			File testFile = new File(prefs.getString("archive_dir", 
+    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
+    			+ File.separator +slugs[set]+"/"+slugs[set]+"_p_"+chapter+".htm");
+
+			if(!testFile.exists())
+				files[0] = "file:///android_asset/not_found.htm";
+			else
+				files[0] = "file://"
+					+prefs.getString("archive_dir", 
+	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
+	    			+ "/" + slugs[set] + "/" + slugs[set] + "_p_" + chapter + ".htm";
+
+			// english file
+			
+			testFile = new File(prefs.getString("archive_dir", 
+    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
+    		+ File.separator +slugs[set]+"/"+slugs[set]+"_e_"+chapter+".htm");
+			if(!testFile.exists())
+				files[1] = "file:///android_asset/not_found.htm";
+			else
+				files[1] = "file://"
+					+prefs.getString("archive_dir", 
+	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
+	    			+ "/" + slugs[set] + "/" + slugs[set] + "_e_" + chapter + ".htm";
 		}
 
 		@Override
@@ -384,7 +406,7 @@ public class TextsActivity extends FragmentActivity implements
 			int page = args.getInt("page");
 			String file = files[page];
 
-			Log.i(TAG,"loading file "+file);
+			//Log.i(TAG,"loading file "+file);
 			ewv.getSettings().setBuiltInZoomControls(true);
 			ewv.getSettings().setSupportZoom(true);
 	        ewv.getSettings().setJavaScriptEnabled(true); // enable javascript
@@ -393,7 +415,8 @@ public class TextsActivity extends FragmentActivity implements
 			ewv.setInitialScale((int)(100*zoom));
 	        
 			ewv.setWebViewClient(new MyWebViewClient());
-	        ewv.loadUrl("file:///android_asset/" +file);
+			
+			ewv.loadUrl(file);
 			webviews[page] = ewv;
 
 			return rootView;
@@ -415,7 +438,7 @@ public class TextsActivity extends FragmentActivity implements
 	
 
 
-    public void search(){  
+    public void searchInPage(){  
 	    final LinearLayout container = (LinearLayout)findViewById(R.id.search);  
 	      
 	    Button nextButton = new Button(this);  
@@ -434,9 +457,9 @@ public class TextsActivity extends FragmentActivity implements
 	    closeButton.setText("Close");
 	    closeButton.setOnClickListener(new OnClickListener(){  
 	    	@Override  
-	    	public void onClick(View v){  
-	    	container.removeAllViews();  
-	    	  
+	    	public void onClick(View v){
+	    		currentWebView.clearMatches();
+	    		container.removeAllViews();  
 	    	}  
     	}); 
 	    container.addView(closeButton);  

@@ -19,12 +19,12 @@
 		android:orientation="horizontal"
 		android:content="@+id/contents">
 
-	     <ImageView
-	         android:id="@id/handle"
+	    <ImageView
+			android:id="@id/handle"
 			android:src="@drawable/tray_handle_50"
 			android:layout_width="40dp"
 			android:layout_height="match_parent"
-			 />
+			/>
 
 	    <ListView
 		    android:id="@+id/contents"
@@ -36,9 +36,9 @@
  	</SlidingDrawer>
 	<LinearLayout  
 		android:orientation="horizontal"  
-		android:layout_width="wrap_content"  
+		android:layout_width="match_parent"  
 		android:layout_height="wrap_content"  
-		android:background="#FFFFFFFF"
+		android:background="#EEEEEE"
 		android:id="@+id/search"  
 		/> 
 </RelativeLayout>
