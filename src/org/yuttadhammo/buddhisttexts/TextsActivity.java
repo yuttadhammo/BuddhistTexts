@@ -4,24 +4,23 @@ package org.yuttadhammo.buddhisttexts;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -29,8 +28,8 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -45,7 +44,7 @@ import android.widget.ListView;
 import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
-public class TextsActivity extends FragmentActivity implements
+public class TextsActivity extends SherlockFragmentActivity implements
 		ActionBar.TabListener {
 
 	public static final String TAG = "TextsActivity";
@@ -73,8 +72,6 @@ public class TextsActivity extends FragmentActivity implements
 
 	public int MAX;
 
-	private ActionBar actionBar;
-
 	public static String[] files = new String[2];
 
 	private ListView idxList;
@@ -92,12 +89,19 @@ public class TextsActivity extends FragmentActivity implements
 	SparseIntArray map = new SparseIntArray();
 
 	private int lastPage;
+
+	private int API;
+
+	private ActionBar actionBar;
 	
 	public static WebView[] webviews = new WebView[2];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		API = Build.VERSION.SDK_INT;
+		actionBar = getSupportActionBar();
 		
 		int mapi = 0;
 		map.put(R.id.menu_DN, mapi++);
@@ -117,10 +121,18 @@ public class TextsActivity extends FragmentActivity implements
 		lastPosition = chapter-1;
 			
 		
-		// Set up the action bar.
-		actionBar = getActionBar();
+	
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		actionBar.removeAllTabs();
 		
+		actionBar.addTab(actionBar.newTab()
+				.setText(getString(R.string.pali))
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab()
+				.setText(getString(R.string.english))
+				.setTabListener(this));
+			
 		setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
 		
 		final SlidingDrawer drawer = (SlidingDrawer) findViewById(R.id.drawer);
@@ -137,28 +149,24 @@ public class TextsActivity extends FragmentActivity implements
 						currentPage = position;
 						currentWebView = webviews[position];
 						
-						// For each of the sections in the app, add a tab to the action bar.
-						for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-							// Create a tab with text corresponding to the page title defined by
-							// the adapter. Also specify this Activity object, which implements
-							// the TabListener interface, as the callback (listener) for when
-							// this tab is selected.
-							actionBar.getTabAt(i)
-								.setText(mSectionsPagerAdapter.getPageTitle(i));
+
+						if(API >= Build.VERSION_CODES.HONEYCOMB) {							
+							
+							// For each of the sections in the app, add a tab to the action bar.
+							for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+								// Create a tab with text corresponding to the page title defined by
+								// the adapter. Also specify this Activity object, which implements
+								// the TabListener interface, as the callback (listener) for when
+								// this tab is selected.
+								actionBar.getTabAt(i)
+									.setText(mSectionsPagerAdapter.getPageTitle(i));
+							}
+							
+							actionBar.setSelectedNavigationItem(position);
 						}
-						
-						actionBar.setSelectedNavigationItem(position);
 					}
 				});
 		
-		actionBar.removeAllTabs();
-		
-		actionBar.addTab(actionBar.newTab()
-				.setText(getString(R.string.pali))
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab()
-				.setText(getString(R.string.english))
-				.setTabListener(this));
 		
 		idxList = (ListView) findViewById(R.id.contents);
 		idxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -221,7 +229,7 @@ public class TextsActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu, menu);
+		getSupportMenuInflater().inflate(R.menu.menu, menu);
 	    Menu sub = menu.findItem(R.id.menu_text).getSubMenu();
 	    sub.setGroupCheckable(R.id.group_text, true, true);
 		sub.getItem(set).setChecked(true);
@@ -289,23 +297,6 @@ public class TextsActivity extends FragmentActivity implements
 
         // restore
         idxList.setSelectionFromTop(index, top);		
-	}
-	@Override
-	public void onTabSelected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-	}
-
-	@Override
-	public void onTabReselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
 	}
 
 	
@@ -440,7 +431,8 @@ public class TextsActivity extends FragmentActivity implements
 
     public void searchInPage(){  
 	    final LinearLayout container = (LinearLayout)findViewById(R.id.search);  
-	      
+	    container.removeAllViews();
+	    
 	    Button nextButton = new Button(this);  
 	    nextButton.setText("Next");  
 	    nextButton.setOnClickListener(new OnClickListener(){  
@@ -513,6 +505,28 @@ public class TextsActivity extends FragmentActivity implements
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	@Override
+	public void onTabSelected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+		// When the given tab is selected, switch to the corresponding page in
+		// the ViewPager.
+		if(tab != null && mViewPager != null)
+			mViewPager.setCurrentItem(tab.getPosition());
+	}
+	@Override
+	public void onTabUnselected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onTabReselected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
