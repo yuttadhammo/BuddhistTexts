@@ -2,8 +2,8 @@
 <RelativeLayout  
 	xmlns:android="http://schemas.android.com/apk/res/android"  
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="fill_parent"  
-	android:layout_height="fill_parent"  
+	android:layout_width="match_parent"  
+	android:layout_height="match_parent"  
 	>
 	<android.support.v4.view.ViewPager
 	    android:id="@+id/pager"
@@ -30,8 +30,8 @@
 		    android:id="@+id/contents"
 		    android:layout_width="300dp"
 		    android:layout_height="match_parent"
-		    android:background="#FFFFFFFF"
-		    android:divider="@drawable/border_right_light"      
+		    android:background="@drawable/border_right"
+		    android:divider="#DDDDDD"      
 	        />
  	</SlidingDrawer>
 	<LinearLayout  

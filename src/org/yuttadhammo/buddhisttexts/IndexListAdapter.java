@@ -30,9 +30,6 @@ public class IndexListAdapter extends ArrayAdapter<String> {
 		if(position == lp) {
     		v.setBackgroundResource(R.drawable.border_right_light);
 		}
-		else {
-    		v.setBackgroundResource(R.drawable.border_right);
-		}
 		
 		TextView tv = (TextView)v.findViewById(ti);
 		tv.setTextColor(0xFF000000);

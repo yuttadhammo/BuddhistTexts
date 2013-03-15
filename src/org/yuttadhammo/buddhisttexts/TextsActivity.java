@@ -100,7 +100,6 @@ public class TextsActivity extends SherlockFragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		API = Build.VERSION.SDK_INT;
 		actionBar = getSupportActionBar();
 		
 		int mapi = 0;
@@ -149,21 +148,17 @@ public class TextsActivity extends SherlockFragmentActivity implements
 						currentPage = position;
 						currentWebView = webviews[position];
 						
-
-						if(API >= Build.VERSION_CODES.HONEYCOMB) {							
-							
-							// For each of the sections in the app, add a tab to the action bar.
-							for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-								// Create a tab with text corresponding to the page title defined by
-								// the adapter. Also specify this Activity object, which implements
-								// the TabListener interface, as the callback (listener) for when
-								// this tab is selected.
-								actionBar.getTabAt(i)
-									.setText(mSectionsPagerAdapter.getPageTitle(i));
-							}
-							
-							actionBar.setSelectedNavigationItem(position);
+						// For each of the sections in the app, add a tab to the action bar.
+						for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+							// Create a tab with text corresponding to the page title defined by
+							// the adapter. Also specify this Activity object, which implements
+							// the TabListener interface, as the callback (listener) for when
+							// this tab is selected.
+							actionBar.getTabAt(i)
+								.setText(mSectionsPagerAdapter.getPageTitle(i));
 						}
+						
+						actionBar.setSelectedNavigationItem(position);
 					}
 				});
 		
