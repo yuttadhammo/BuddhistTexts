@@ -272,7 +272,7 @@
 	</string-array>
     <string-array name="dh_names">
 		<item>ganthārambhakathā</item>
-		<item>cakkhupālattheravatthu </item>
+		<item>1. cakkhupālattheravatthu </item>
 		<item>maṭṭhakuṇḍalīvatthu </item>
 		<item>tissattheravatthu</item>
 		<item>kāḷayakkhinīvatthu</item>
@@ -286,7 +286,7 @@
 		<item>devadattavatthu</item>
 		<item>sumanādevīvatthu</item>
 		<item>dvesahāyakabhikkhuvatthu</item>
-		<item>sāmāvatīvatthu</item>
+		<item>2. sāmāvatīvatthu</item>
 		<item>kumbhaghosakaseṭṭhivatthu</item>
 		<item>cūḷapanthakattheravatthu</item>
 		<item>bālanakkhattasaṅghuṭṭhavatthu</item>
@@ -295,7 +295,7 @@
 		<item>maghavatthu</item>
 		<item>aññatarabhikkhuvatthu</item>
 		<item>nigamavāsitissattheravatthu</item>
-		<item>meghiyattheravatthu</item>
+		<item>3. meghiyattheravatthu</item>
 		<item>aññatarabhikkhuvatthu</item>
 		<item>aññataraukkaṇṭhitabhikkhuvatthu</item>
 		<item>saṅgharakkhitabhāgineyyattheravatthu</item>
@@ -304,7 +304,7 @@
 		<item>pūtigattatissattheravatthu</item>
 		<item>nandagopālakavatthu</item>
 		<item>soreyyattheravatthu</item>
-		<item>pathavikathāpasutapañcasatabhikkhuvatthu</item>
+		<item>4. pathavikathāpasutapañcasatabhikkhuvatthu</item>
 		<item>marīcikammaṭṭhānikattheravatthu</item>
 		<item>viṭaṭūbhavatthu</item>
 		<item>patipūjikakumārivatthu</item>
@@ -316,7 +316,7 @@
 		<item>mahākassapattherapiṇḍapātadinnavatthu</item>
 		<item>godhikattheraparinibbānavatthu</item>
 		<item>garahadinnavatthu</item>
-		<item>aññatarapurisavatthu</item>
+		<item>5. aññatarapurisavatthu</item>
 		<item>mahākassapattherasaddhivihārikavatthu</item>
 		<item>ānandaseṭṭhivatthu</item>
 		<item>gaṇṭhibhedakacoravatthu</item>
@@ -331,7 +331,7 @@
 		<item>saṭṭhikūṭapetavatthu</item>
 		<item>cittagahapativatthu</item>
 		<item>vanavāsītissasāmaṇeravatthu</item>
-		<item>rādhattheravatthu</item>
+		<item>6. rādhattheravatthu</item>
 		<item>assajipunabbasukavatthu</item>
 		<item>channattheravatthu</item>
 		<item>mahākappinattheravatthu</item>
@@ -342,7 +342,7 @@
 		<item>dhammikattheravatthu</item>
 		<item>dhammassavanavatthu</item>
 		<item>pañcasatāagantukabhikkhuvatthu</item>
-		<item>jīvakapañhavatthu</item>
+		<item>7. jīvakapañhavatthu</item>
 		<item>mahākassapattheravatthu</item>
 		<item>belaṭṭhasīsattheravatthu</item>
 		<item>anuruddhattheravatthu</item>
@@ -352,7 +352,7 @@
 		<item>sāriputtattheravatthu</item>
 		<item>khadiravaniyarevatattheravatthu</item>
 		<item>aññataraitthivatthu </item>
-		<item>tambadāṭhikacoraghātakavatthu</item>
+		<item>8. tambadāṭhikacoraghātakavatthu</item>
 		<item>bāhiyadārucīriyattheravatthu</item>
 		<item>kuṇḍalakesittherīvatthu</item>
 		<item>anatthapucchakabrāhmaṇavatthu</item>
@@ -366,7 +366,7 @@
 		<item>paṭācārātherīvatthu</item>
 		<item>kisāgotamīvatthu </item>
 		<item>bahuputtikattherīvatthu</item>
-		<item>cūḷekasāṭakabrāhmaṇavatthu</item>
+		<item>9. cūḷekasāṭakabrāhmaṇavatthu</item>
 		<item>seyyasakattheravatthu</item>
 		<item>lājadevadhītāvatthu</item>
 		<item>anāthapiṇḍikaseṭṭhivatthu</item>
@@ -378,7 +378,7 @@
 		<item>maṇikārakulūpakatissattheravatthu</item>
 		<item>tayojanavatthu</item>
 		<item>suppabuddhasakyavatthu</item>
-		<item>chabbaggiyabhikkhuvatthu</item>
+		<item>10. chabbaggiyabhikkhuvatthu</item>
 		<item>chabbaggiyabhikkhuvatthu</item>
 		<item>sabbahulakumārakavatthu</item>
 		<item>koṇḍadhānattheravatthu</item>
@@ -389,7 +389,7 @@
 		<item>santatimahāmattavatthu</item>
 		<item>pilotikatissattheravatthu</item>
 		<item>sukhasāmaṇeravatthu</item>
-		<item>visākhāya sahāyikānaṃ vatthu</item>
+		<item>11. visākhāya sahāyikānaṃ vatthu</item>
 		<item>sirimāvatthu</item>
 		<item>uttarātherīvatthu</item>
 		<item>sambahulādhimānikabhikkhuvatthu</item>
@@ -398,7 +398,7 @@
 		<item>lāḷudāyittheravatthu</item>
 		<item>udānavatthu</item>
 		<item>mahādhanaseṭṭhiputtavatthu</item>
-		<item>bodhirājakumāravatthu </item>
+		<item>12. bodhirājakumāravatthu </item>
 		<item>upanandasakyaputtattheravatthu</item>
 		<item>padhānikatissattheravatthu</item>
 		<item>kumārakassapamātutherīvatthu</item>
@@ -408,7 +408,7 @@
 		<item>kālattheravatthu</item>
 		<item>cūḷakālaupāsakavatthu</item>
 		<item>attadatthattheravatthu</item>
-		<item>daharabhikkhuvatthu</item>
+		<item>13. daharabhikkhuvatthu</item>
 		<item>suddhodanavatthu</item>
 		<item>pañcasatavipassakabhikkhuvatthu</item>
 		<item>abhayarājakumāravatthu</item>
@@ -419,7 +419,7 @@
 		<item>ciñcamāṇavikāvatthu</item>
 		<item>asadisadānavatthu</item>
 		<item>anāthapiṇḍakaputtakālavatthu</item>
-		<item>māradhītaravatthu</item>
+		<item>14. māradhītaravatthu</item>
 		<item>devorohaṇavatthu</item>
 		<item>erakapattanāgarājavatthu</item>
 		<item>ānandattherapañhavatthu</item>
@@ -428,7 +428,7 @@
 		<item>ānandattherapañhavatthu</item>
 		<item>sambahulabhikkhuvatthu</item>
 		<item>kassapadasabalassa suvaṇṇacetiyavatthu</item>
-		<item>ñāātikalahavūpasamanavatthu </item>
+		<item>15. ñāātikalahavūpasamanavatthu </item>
 		<item>māravatthu</item>
 		<item>kosalarañño parājayavatthu</item>
 		<item>aññatarakuladārikāvatthu</item>
@@ -436,7 +436,7 @@
 		<item>pasenadikosalavatthu</item>
 		<item>tissattheravatthu</item>
 		<item>sakkavatthu</item>
-		<item>tayojanapabbajitavatthu</item>
+		<item>16. tayojanapabbajitavatthu</item>
 		<item>aññatarakuṭumbikavatthu</item>
 		<item>visākhāvatthu</item>
 		<item>licchavīvatthu</item>
@@ -445,7 +445,7 @@
 		<item>pañcasatadārakavatthu</item>
 		<item>ekānāgāmittheravatthu </item>
 		<item>nandiyavatthu</item>
-		<item>rohinīkhattiyakaññāvatthu</item>
+		<item>17. rohinīkhattiyakaññāvatthu</item>
 		<item>aññatarabhikkhuvatthu</item>
 		<item>uttarāupāsikāvatthu</item>
 		<item>mahāmoggallānattherapañhavatthu</item>
@@ -453,7 +453,7 @@
 		<item>puṇṇadāsīvatthu</item>
 		<item>atulaupāsakavatthu</item>
 		<item>chabbaggiyavatthu</item>
-		<item>goghātakaputtavatthu</item>
+		<item>18. goghātakaputtavatthu</item>
 		<item>aññatarabrāhmaṇavatthu</item>
 		<item>tissattheravatthu</item>
 		<item>lāludāyittheravatthu</item>
@@ -465,7 +465,7 @@
 		<item>meṇḍakaseṭṭhivatthu</item>
 		<item>ujjhānasaññittheravatthu</item>
 		<item>subhaddaparibbājakavatthu</item>
-		<item>vinicchayamahāmattavatthu</item>
+		<item>19. vinicchayamahāmattavatthu</item>
 		<item>chabbaggiyavatthu</item>
 		<item>ekudānakhīṇāsavattheravatthu</item>
 		<item>lakuṇḍakabhaddiyattheravatthu</item>
@@ -475,7 +475,7 @@
 		<item>titthiyavatthu</item>
 		<item>bālisikavatthu</item>
 		<item>sambahulasīlādisampannabhikkhuvatthu</item>
-		<item>pañcasatabhikkhuvatthu</item>
+		<item>20. pañcasatabhikkhuvatthu</item>
 		<item>aniccalakkhaṇavatthu</item>
 		<item>dukkhalakkhaṇavatthu</item>
 		<item>anattalakkhaṇavatthu</item>
@@ -487,7 +487,7 @@
 		<item>mahādhanavāṇijavatthu</item>
 		<item>kisāgotamīvatthu</item>
 		<item>paṭācārāvatthu</item>
-		<item>attanopubbakammavatthu</item>
+		<item>21. attanopubbakammavatthu</item>
 		<item>kukkuṭāṇḍakhādikāvatthu</item>
 		<item>bhaddiyabhikkhuvatthu</item>
 		<item>lakuṇḍakabhaddiyattheravatthu</item>
@@ -496,7 +496,7 @@
 		<item>cittagahapativatthu</item>
 		<item>cūḷasubhaddāvatthu</item>
 		<item>ekavihārittheravatthu</item>
-		<item>sundarīparibbājikāvatthu</item>
+		<item>22. sundarīparibbājikāvatthu</item>
 		<item>duccaritaphalapīḷitavatthu</item>
 		<item>vaggumudātīriyabhikkhuvatthu</item>
 		<item>khemakaseṭṭhiputtavatthu</item>
@@ -505,7 +505,7 @@
 		<item>sambahulabhikkhuvatthu</item>
 		<item>nigaṇṭhavatthu</item>
 		<item>titthiyasāvakavatthu</item>
-		<item>attadantavatthu</item>
+		<item>23. attadantavatthu</item>
 		<item>hatthācariyapubbakabhikkhuvatthu</item>
 		<item>parijiṇṇabrāhmaṇaputtavatthu</item>
 		<item>pasenadikosalavatthu</item>
@@ -513,7 +513,7 @@
 		<item>pāveyyakahatthivatthu</item>
 		<item>sambahulabhikkhuvatthu</item>
 		<item>māravatthu</item>
-		<item>kapilamacchavatthu</item>
+		<item>24. kapilamacchavatthu</item>
 		<item>sūkarapotikāvatthu</item>
 		<item>vibbhantabhikkhuvatthu</item>
 		<item>bandhanāgāravatthu</item>
@@ -525,7 +525,7 @@
 		<item>sakkapañhavatthu </item>
 		<item>aputtakaseṭṭhivatthu</item>
 		<item>aṅkuravatthu </item>
-		<item>pañcabhikkhuvatthu</item>
+		<item>25. pañcabhikkhuvatthu</item>
 		<item>haṃsaghātakabhikkhuvatthu</item>
 		<item>kokālikavatthu</item>
 		<item>dhammārāmattheravatthu</item>
@@ -537,7 +537,7 @@
 		<item>naṅgalakulattheravatthu</item>
 		<item>vakkalittheravatthu</item>
 		<item>sumanasāmaṇeravatthu</item>
-		<item>pasādabahulabrāhmaṇavatthu</item>
+		<item>26. pasādabahulabrāhmaṇavatthu</item>
 		<item>sambahulabhikkhuvatthu</item>
 		<item>māravatthu</item>
 		<item>aññatarabrāhmaṇavatthu</item>
