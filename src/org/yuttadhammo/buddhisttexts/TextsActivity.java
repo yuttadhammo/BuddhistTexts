@@ -2,6 +2,10 @@ package org.yuttadhammo.buddhisttexts;
 
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -10,19 +14,24 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -30,6 +39,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -84,7 +95,7 @@ public class TextsActivity extends SherlockFragmentActivity implements
 
 	private int set;
 	
-	private String[] slugs = {"dn","mn","sn","an","dh","ja","vi"};
+	private String[] slugs = {"dn","mn","sn","an","dhpa","ja","vi"};
 	private int[] arrays = {R.array.dn_names,R.array.mn_names,R.array.sn_names,R.array.an_names,R.array.dh_names,R.array.ja_names,R.array.vi_names};
 	SparseIntArray map = new SparseIntArray();
 
@@ -93,6 +104,10 @@ public class TextsActivity extends SherlockFragmentActivity implements
 	private int API;
 
 	private ActionBar actionBar;
+
+	private Button showActionBar;
+
+	private SlidingMenu slideMenu;
 	
 	public static WebView[] webviews = new WebView[2];
 
@@ -119,7 +134,17 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		chapter = prefs.getInt("chapter", 1);
 		lastPosition = chapter-1;
 			
-		
+
+        slideMenu = new SlidingMenu(this);
+        slideMenu.setMode(SlidingMenu.LEFT);
+        slideMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        //menu.setShadowWidthRes(0);
+        //menu.setShadowDrawable(R.drawable.shadow);
+        slideMenu.setBehindWidthRes(R.dimen.slide_width);
+        slideMenu.setFadeDegree(0.35f);
+        slideMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        slideMenu.setMenu(R.layout.slide);
+		slideMenu.setSlidingEnabled(false);
 	
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -131,11 +156,23 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		actionBar.addTab(actionBar.newTab()
 				.setText(getString(R.string.english))
 				.setTabListener(this));
-			
-		setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
-		
-		final SlidingDrawer drawer = (SlidingDrawer) findViewById(R.id.drawer);
 
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		setTitle(getString(R.string.app_name)+" - "+getResources().getStringArray(R.array.set_names)[set]);
+
+		showActionBar = (Button) findViewById(R.id.showactionbar);
+
+		showActionBar.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				actionBar.show();
+				showActionBar.setVisibility(View.GONE);
+			}
+		});
+		
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		
 		// When swiping between different sections, select the corresponding
@@ -147,7 +184,6 @@ public class TextsActivity extends SherlockFragmentActivity implements
 					public void onPageSelected(int position) {
 						currentPage = position;
 						currentWebView = webviews[position];
-						
 						// For each of the sections in the app, add a tab to the action bar.
 						for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 							// Create a tab with text corresponding to the page title defined by
@@ -163,16 +199,49 @@ public class TextsActivity extends SherlockFragmentActivity implements
 				});
 		
 		
-		idxList = (ListView) findViewById(R.id.contents);
+		idxList = (ListView) slideMenu.findViewById(R.id.contents);
 		idxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				drawer.animateClose();
+				slideMenu.toggle();
 				
 				changePosition(position);
 		  	}
 		});
+		
+		// check for directory, zip file
+		
+		File testFile = new File(prefs.getString("archive_dir", 
+				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
+			);
+		if(!testFile.exists())
+			testFile = new File(
+					Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts"
+				);
+		
+		if(!testFile.exists()) {
+			testFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() 
+					+ File.separator + "BuddhistTexts.zip");
+			if(testFile.exists()) {
+		        new AlertDialog.Builder(this)
+		        .setIcon(android.R.drawable.ic_dialog_alert)
+		        .setTitle(R.string.verify_unzip)
+		        .setMessage(R.string.verify_unzip_message)
+		        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+		            @Override
+		            public void onClick(DialogInterface dialog, int which) {
+		            	uncompressFile();
+		            }
+
+		        })
+		        .setNegativeButton(android.R.string.no, null)
+		        .show();	
+			}
+				
+		}
+		
 		updatePage();
 	}
 	@Override
@@ -190,7 +259,7 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		editor.putInt("chapter", chapter);
     	editor.putInt("page", currentPage);
 		if(currentWebView != null) {
-			editor.putFloat("zoom_"+currentPage, currentWebView.getScale());
+			//editor.putFloat("zoom_"+currentPage, currentWebView.getScale());
 		}
     	editor.commit();
 	}
@@ -208,9 +277,10 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		
 		if(currentWebView == null)
 			currentWebView = webviews[currentPage];
-		if(currentWebView != null)
+		if(currentWebView != null) {
 			prefs.edit().putFloat("zoom_"+currentPage, currentWebView.getScale()).commit();
-
+		}
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -250,10 +320,11 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		
 		//SharedPreferences.Editor editor = prefs.edit();
 		Intent intent;
+		int size;
 		switch (item.getItemId()) {
 	        case android.R.id.home:
 	            // app icon in action bar clicked; go home
-	            finish();
+	            slideMenu.toggle();
 	            return true;
 			case (int)R.id.menu_settings:
 				intent = new Intent(this, TextsSettingsActivity.class);
@@ -275,9 +346,45 @@ public class TextsActivity extends SherlockFragmentActivity implements
 				else
 					changePosition(lastPosition+1);
 				return true;
+			case (int)R.id.menu_font_minus:
+				size = prefs.getInt("text_size", 18);
+				size = size - 2;
+				if(size < 8)
+					size = 8;
+				updateFontSize(size);
+				return true;
+			case (int)R.id.menu_font_plus:
+				size = prefs.getInt("text_size", 18);
+				size = size + 2;
+				updateFontSize(size);
+				return true;
+			case (int)R.id.menu_fullscreen:
+				actionBar.hide();
+				showActionBar.setVisibility(View.VISIBLE);
+				return true;
 		}
 		return false;
 	}
+	
+	private void updateFontSize(int size) {
+		String data = "* { font-size:"+size+"px; }\n";
+		File file = new File(prefs.getString("archive_dir", Environment.getExternalStorageDirectory().getAbsolutePath() + "/BuddhistTexts")
+		+ "/css/"+(currentPage==0?"pali":"english")+"_custom.css");
+		Log.e(TAG,file.getAbsolutePath());
+        try {
+            FileWriter out = new FileWriter(file);
+            out.write(data);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		Editor editor = prefs.edit();
+		editor.putInt("text_size", size);
+		editor.commit();
+		
+		updatePage();
+	}
+	
 	private void changePosition(int position) {
 		chapter = position+1;
 		lastPosition = position;
@@ -313,26 +420,41 @@ public class TextsActivity extends SherlockFragmentActivity implements
     				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
     			+ File.separator +slugs[set]+"/"+slugs[set]+"_p_"+chapter+".htm");
 
+			if(!testFile.exists()) {
+				Log.d(TAG,"File not found: "+testFile.getAbsolutePath().toString());
+				testFile = new File( 
+	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts"
+	    			+ File.separator +slugs[set]+"/"+slugs[set]+"_p_"+chapter+".htm"
+	    		);
+			}
+			
 			if(!testFile.exists())
 				files[0] = "file:///android_asset/not_found.htm";
 			else
 				files[0] = "file://"
-					+prefs.getString("archive_dir", 
-	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
-	    			+ "/" + slugs[set] + "/" + slugs[set] + "_p_" + chapter + ".htm";
+					+testFile.getAbsolutePath().toString();
 
 			// english file
 			
 			testFile = new File(prefs.getString("archive_dir", 
     				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
     		+ File.separator +slugs[set]+"/"+slugs[set]+"_e_"+chapter+".htm");
+
+			if(!testFile.exists()) {
+				testFile = new File( 
+	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts"
+	    			+ File.separator +slugs[set]+"/"+slugs[set]+"_e_"+chapter+".htm"
+	    		);
+			}
+			
+			
 			if(!testFile.exists())
 				files[1] = "file:///android_asset/not_found.htm";
 			else
 				files[1] = "file://"
-					+prefs.getString("archive_dir", 
-	    				Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BuddhistTexts")
-	    			+ "/" + slugs[set] + "/" + slugs[set] + "_e_" + chapter + ".htm";
+						+testFile.getAbsolutePath().toString();
+			
+			Log.d(TAG,"File location: "+testFile.getAbsolutePath().toString());
 		}
 
 		@Override
@@ -372,7 +494,6 @@ public class TextsActivity extends SherlockFragmentActivity implements
 
 		}
 	}
-	protected static SparseArray<String> newTexts = new SparseArray<String>();
 
 	public static class SectionFragment extends Fragment {
 
@@ -397,12 +518,13 @@ public class TextsActivity extends SherlockFragmentActivity implements
 			ewv.getSettings().setSupportZoom(true);
 	        ewv.getSettings().setJavaScriptEnabled(true); // enable javascript
 
-	        float zoom = prefs.getFloat("zoom_"+page, 1f);
-			ewv.setInitialScale((int)(100*zoom));
+	        //float zoom = prefs.getFloat("zoom_"+page, 1f);
+			ewv.setInitialScale(100);
 	        
 			ewv.setWebViewClient(new MyWebViewClient());
 			
 			ewv.loadUrl(file);
+			ewv.clearCache(true);
 			webviews[page] = ewv;
 
 			return rootView;
@@ -422,9 +544,14 @@ public class TextsActivity extends SherlockFragmentActivity implements
 
 	}	
 	
-
-
-    public void searchInPage(){  
+	boolean firstSearch = true;
+	private String currentSearchText;
+	private EditText findBox;
+	
+    public void searchInPage(){
+    	findBox = new EditText(this);
+    	firstSearch = true;
+    	
 	    final LinearLayout container = (LinearLayout)findViewById(R.id.search);  
 	    container.removeAllViews();
 	    
@@ -433,9 +560,14 @@ public class TextsActivity extends SherlockFragmentActivity implements
 	    nextButton.setOnClickListener(new OnClickListener(){  
 	    	@Override  
 	    	public void onClick(View v){
-	    		if(currentWebView == null)
-	    			currentWebView = webviews[currentPage];
-	    		currentWebView.findNext(true);  
+	    		
+	    		if(firstSearch || !findBox.getText().toString().equals(currentSearchText))
+	    			doFirstSearch();
+	    		else {
+		    		if(currentWebView == null)
+		    			currentWebView = webviews[currentPage];
+		    		currentWebView.findNext(true);
+	    		}
 	    	}  
 	    });  
 	    container.addView(nextButton);  
@@ -451,36 +583,42 @@ public class TextsActivity extends SherlockFragmentActivity implements
     	}); 
 	    container.addView(closeButton);  
 	      
-	    final EditText findBox = new EditText(this);
 	    findBox.setOnKeyListener(new OnKeyListener(){  
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 		    	if((event.getAction() == KeyEvent.ACTION_DOWN) && ((keyCode == KeyEvent.KEYCODE_ENTER))){  
-		    		if(currentWebView == null)
-		    			currentWebView = webviews[currentPage];
-		    		currentWebView.findAll(toUni(findBox.getText().toString()));  
-					  
-					try{  
-					    for(Method m : WebView.class.getDeclaredMethods()){
-					        if(m.getName().equals("setFindIsUp")){
-					            m.setAccessible(true);
-					            m.invoke(currentWebView, true);
-					    		Log.i(TAG,"set find is up");
-					            break;
-					        }
-					    } 
-					}catch(Exception e){
-			    		e.printStackTrace();
-					}  
+		    		doFirstSearch();
 				}  
 				return false;  
 			}  
     	}); 
 		findBox.setMinEms(30);  
 		findBox.setSingleLine(true);
+		findBox.setId(57185718);
 		container.addView(findBox);  
     }  
 	
+    void doFirstSearch() {
+    	currentSearchText = findBox.getText().toString();
+		if(currentWebView == null)
+			currentWebView = webviews[currentPage];
+		currentWebView.findAll(toUni(currentSearchText));  
+		  
+		try{  
+		    for(Method m : WebView.class.getDeclaredMethods()){
+		        if(m.getName().equals("setFindIsUp")){
+		            m.setAccessible(true);
+		            m.invoke(currentWebView, true);
+		    		Log.i(TAG,"set find is up");
+		            break;
+		        }
+		    }
+			firstSearch = false;
+		}catch(Exception e){
+    		e.printStackTrace();
+		} 
+    }
+    
 	public static String toUni(String string) {
 		string = string.replace("aa", "ā").replace("ii", "ī").replace("uu", "ū").replace(".t", "ṭ").replace(".d", "ḍ").replace("\"n", "ṅ").replace(".n", "ṇ").replace(".m", "ṃ").replace("~n", "ñ").replace(".l", "ḷ");
 		return string;
@@ -523,5 +661,41 @@ public class TextsActivity extends SherlockFragmentActivity implements
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private Handler handler = new Handler();
+	   
+    public void uncompressFile() {
+    	final Activity activity = this;
+    	
+    	final Decompress d = new Decompress(
+    			Environment.getExternalStorageDirectory().getAbsolutePath() 
+				+ File.separator + "BuddhistTexts.zip", 
+				Environment.getExternalStorageDirectory().getAbsolutePath() 
+				+ File.separator); 
+    	final ProgressDialog unzipProgressDialog = new ProgressDialog(this);
+    	unzipProgressDialog.setCancelable(false);
+    	unzipProgressDialog.setMessage(getString(R.string.unzipping));
+    	Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				d.unzip();
+				handler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						if(unzipProgressDialog.isShowing()) {
+							unzipProgressDialog.dismiss();
+							Toast.makeText(activity, activity.getString(R.string.unzipped), Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+			}
+		});
+    	thread.start();
+    	if (!activity.isFinishing()) {
+        	unzipProgressDialog.show();
+        }
+    	    
+    }
 
 }

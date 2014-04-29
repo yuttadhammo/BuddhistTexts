@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="@string/miscPref">
+	<PreferenceCategory android:title="@string/misc_prefs">
    		<EditTextPreference 
    		    android:key="archive_dir"
 			android:title="@string/archive_dir"
 			android:shouldDisableView="true"
 			android:singleLine="true"/>
    	</PreferenceCategory>   
-   	    	
 </PreferenceScreen>

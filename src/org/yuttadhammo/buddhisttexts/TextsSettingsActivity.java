@@ -55,7 +55,7 @@ public class TextsSettingsActivity extends PreferenceActivity {
 			getActionBar().setHomeButtonEnabled(true);
 		}		
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection

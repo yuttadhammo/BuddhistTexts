@@ -10,35 +10,21 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    tools:context=".TextsActivity" />
-	 <SlidingDrawer
-		android:id="@+id/drawer"
-		android:layout_width="300dp"
-		android:layout_height="match_parent"
-		android:handle="@+id/handle"
-		android:layout_alignParentRight="true"
-		android:orientation="horizontal"
-		android:content="@+id/contents">
-
-	    <ImageView
-			android:id="@id/handle"
-			android:src="@drawable/tray_handle_50"
-			android:layout_width="40dp"
-			android:layout_height="match_parent"
-			/>
-
-	    <ListView
-		    android:id="@+id/contents"
-		    android:layout_width="300dp"
-		    android:layout_height="match_parent"
-		    android:background="@drawable/border_right"
-		    android:divider="#DDDDDD"      
-	        />
- 	</SlidingDrawer>
 	<LinearLayout  
 		android:orientation="horizontal"  
 		android:layout_width="match_parent"  
 		android:layout_height="wrap_content"  
 		android:background="#EEEEEE"
 		android:id="@+id/search"  
-		/> 
+		/>
+	<Button
+	    android:id="@+id/showactionbar"
+	    android:background="#33000000"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:padding="20dp"
+		android:visibility="gone"
+	    />	
 </RelativeLayout>
